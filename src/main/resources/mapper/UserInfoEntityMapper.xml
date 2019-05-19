@@ -94,4 +94,12 @@
   <delete id="deleteAll">
     delete from user_info_
   </delete>
+
+  <select id="selectByIdAndSex" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info_
+    where user_id = #{userId,jdbcType=BIGINT}
+    and sex = #{sex,jdbcType=INTEGER}
+  </select>
 </mapper>

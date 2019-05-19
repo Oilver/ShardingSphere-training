@@ -2,6 +2,7 @@ package com.example.shardingjdbcdemo.mapper;
 
 import com.example.shardingjdbcdemo.entity.UserInfoEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserInfoEntityMapper {
@@ -18,4 +19,7 @@ public interface UserInfoEntityMapper {
     int updateByPrimaryKey(UserInfoEntity record);
 
     void deleteAll();
+
+    UserInfoEntity selectByIdAndSex(@Param("userId") long userId,
+                                    @Param("sex") int sex);
 }
