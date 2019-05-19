@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shardingjdbcdemo.mapper.TestMapper">
+
+    <select id="queryOrdersByUserIdAndSex" parameterType="com.example.shardingjdbcdemo.request.ordersRequest"
+            resultType="com.example.shardingjdbcdemo.response.ordersResponse">
+        select u.user_id as userId,u.sex,o.order_id as orderId,
+        a.address_name as addressName
+        from user_info_ u JOIN order_info_ o
+        on u.user_id = o.user_id
+        JOIN address_info_ a on u.user_id = a.user_Id
+        <where>
+            <if test="userId != null">
+                u.user_id = #{userId,jdbcType=BIGINT}
+            </if>
+            <if test="sex != null">
+                and u.sex = #{sex,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAvgBySex" parameterType="int" resultType="long">
+        SELECT AVG(user_id) FROM user_info_
+        WHERE sex = #{sex,jdbcType=INTEGER}
+    </select>
+
+    <select id="limit" resultType="com.example.shardingjdbcdemo.response.UserInfoResponse">
+        select user_id as userId,user_name as userName,account as account,
+        password as `password` , sex as sex
+        from user_info_
+        ORDER BY user_id LIMIT 5, 20
+    </select>
+</mapper>
