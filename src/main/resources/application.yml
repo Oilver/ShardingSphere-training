@@ -13,7 +13,7 @@ mybatis:
 sharding:
   jdbc:
     datasource:
-      names: ds0,ds1,ds0slave0,ds0slave1,ds1slave0,ds1slave1
+      names: ds0,ds1
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,30 +26,6 @@ sharding:
         url: jdbc:mysql://localhost:3306/user_1?useSSL=false&characterEncoding=utf8
         username: root
         password: admin
-      ds0slave0:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/user_0_slave0?useSSL=false&characterEncoding=utf8
-        username: root
-        password: admin
-      ds0slave1:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/user_0_slave1?useSSL=false&characterEncoding=utf8
-        username: root
-        password: admin
-      ds1slave0:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/user_1_slave0?useSSL=false&characterEncoding=utf8
-        username: root
-        password: admin
-      ds1slave1:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/user_1_slave1?useSSL=false&characterEncoding=utf8
-        username: root
-        password: admin
 
     config:
       sharding:
@@ -58,22 +34,15 @@ sharding:
         tables:
           user_info_:
             key-generator-column-name: user_id  #主键
-            actual-data-nodes: ms_ds${0..1}.user_info_${0..1}  #数据节点
-#            database-strategy:  #分库策略
-#              inline:
-#                sharding-column: user_id
-#                algorithm-expression: ds${user_id % 2}
+            actual-data-nodes: ds${0..1}.user_info_${0..1}  #数据节点
+            #hint?
             table-strategy:  #分表策略
               inline:
                 sharding-column: sex
                 algorithm-expression: user_info_${sex % 2}
           order_info_:
             key-generator-column-name: order_id  #主键
-            actual-data-nodes: ms_ds${0..1}.order_info_${0..1}  #数据节点
-#            database-strategy:  #分库策略
-#              inline:
-#                sharding-column: user_id
-#                algorithm-expression: ds${user_id % 2}
+            actual-data-nodes: ds${0..1}.order_info_${0..1}  #数据节点
             table-strategy:  #分表策略
               inline:
                 sharding-column: sex
@@ -85,18 +54,4 @@ sharding:
         defaultDatabaseStrategy:
           inline:
             shardingColumn: user_id
-            algorithmExpression: ms_ds${user_id % 2}
-
-        master-slave-rules:
-          ms_ds0:
-            masterDataSourceName: ds0
-            slaveDataSourceNames:
-              - ds0slave0
-              - ds0slave1
-            load-balancealgorithm-type: ROUND_ROBIN
-          ms_ds1:
-            masterDataSourceName: ds1
-            slaveDataSourceNames:
-              - ds1slave0
-              - ds1slave1
-            load-balancealgorithm-type: ROUND_ROBIN
+            algorithmExpression: ds${user_id % 2}

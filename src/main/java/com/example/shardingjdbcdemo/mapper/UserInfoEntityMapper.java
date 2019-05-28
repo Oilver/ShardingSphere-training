@@ -4,6 +4,8 @@ import com.example.shardingjdbcdemo.entity.UserInfoEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserInfoEntityMapper {
     int deleteByPrimaryKey(Long userId);
@@ -22,4 +24,6 @@ public interface UserInfoEntityMapper {
 
     UserInfoEntity selectByIdAndSex(@Param("userId") long userId,
                                     @Param("sex") int sex);
+
+    List<UserInfoEntity> queryAll();
 }

@@ -102,4 +102,10 @@
     where user_id = #{userId,jdbcType=BIGINT}
     and sex = #{sex,jdbcType=INTEGER}
   </select>
+
+  <select id="queryAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info_
+  </select>
 </mapper>
