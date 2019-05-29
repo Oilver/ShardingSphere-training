@@ -1,8 +1,8 @@
 package com.example.shardingjdbcdemo.controller;
 
 import com.example.shardingjdbcdemo.common.ServerResponse;
-import com.example.shardingjdbcdemo.entity.OrderInfoEntity;
-import com.example.shardingjdbcdemo.mapper.OrderInfoEntityMapper;
+import com.example.shardingjdbcdemo.entity.AddressInfoEntity;
+import com.example.shardingjdbcdemo.mapper.AddressInfoEntityMapper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +13,16 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 @RestController
-@RequestMapping("order")
-public class OrderInfoController {
+@RequestMapping("address")
+public class AddressInfoController {
 
     @Autowired
-    private OrderInfoEntityMapper orderInfoEntityMapper;
+    private AddressInfoEntityMapper addressInfoEntityMapper;
 
     @ApiOperation(value = "插入一条记录")
     @RequestMapping(value = "insert", method = RequestMethod.POST)
-    public ServerResponse insert(@RequestBody OrderInfoEntity orderInfoEntity) {
-        int result = orderInfoEntityMapper.insertSelective(orderInfoEntity);
+    public ServerResponse insert(@RequestBody AddressInfoEntity addressInfoEntity) {
+        int result = addressInfoEntityMapper.insertSelective(addressInfoEntity);
         if (result == 0) {
             return ServerResponse.createByErrorMessage("插入失败");
         }
@@ -32,41 +32,31 @@ public class OrderInfoController {
     @ApiOperation(value = "deleteByUserId")
     @RequestMapping(value = "deleteByUserId", method = RequestMethod.POST)
     public ServerResponse deleteByUserId(@RequestParam long userId) {
-        orderInfoEntityMapper.deleteByUserId(userId);
+        addressInfoEntityMapper.deleteByUserId(userId);
         return ServerResponse.createBySuccess("删除成功");
     }
 
     @ApiOperation(value = "updateByUserId")
     @RequestMapping(value = "updateByUserId", method = RequestMethod.POST)
-    public ServerResponse updateByUserId(@RequestBody OrderInfoEntity orderInfoEntity) {
-        orderInfoEntityMapper.updateByUserId(orderInfoEntity);
+    public ServerResponse updateByUserId(@RequestBody AddressInfoEntity addressInfoEntity) {
+        addressInfoEntityMapper.updateByUserId(addressInfoEntity);
         return ServerResponse.createBySuccess("插入成功");
     }
 
     @ApiOperation(value = "queryByUserId")
     @RequestMapping(value = "queryByUserId", method = RequestMethod.POST)
     public ServerResponse queryByUserId(@RequestParam long userId) {
-        List result = orderInfoEntityMapper.queryByUserId(userId);
+        AddressInfoEntity result = addressInfoEntityMapper.queryByUserId(userId);
         return ServerResponse.createBySuccess(result);
     }
 
-
-    @ApiOperation(value = "增加n条记录记录")
-    @RequestMapping(value = "insertBatch", method = RequestMethod.POST)
-    public ServerResponse insertBatch(@RequestParam int n) {
-        try {
-            for (int i = 0; i < n; i++) {
-                OrderInfoEntity entity = new OrderInfoEntity();
-                entity.setOrderId(Integer.toUnsignedLong(i));
-                entity.setUserId(Integer.toUnsignedLong(i));
-                entity.setSex(Math.random() > 0.4 ? 1 : 0);
-                orderInfoEntityMapper.insert(entity);
-            }
-        } catch (Exception e) {
-            return ServerResponse.createByError();
-        }
-        return ServerResponse.createBySuccess();
+    @ApiOperation(value = "queryByJoin")
+    @RequestMapping(value = "queryByJoin", method = RequestMethod.POST)
+    public ServerResponse queryByJoin(@RequestParam long userId) {
+        List result = addressInfoEntityMapper.queryByJoin(userId);
+        return ServerResponse.createBySuccess(result);
     }
+
 
     @ApiOperation(value = "增加n条记录记录")
     @RequestMapping(value = "insertBatchByJDBC", method = RequestMethod.POST)
@@ -86,7 +76,7 @@ public class OrderInfoController {
             //将自动提交关闭
             conn.setAutoCommit(false);
             //编写sql
-            String sql = "insert into order_info(user_id,sex) VALUES (?,?)";
+            String sql = "insert into address_info(user_id,address_name) VALUES (?,?)";
             //预编译sql
             pstm = conn.prepareStatement(sql);
             //开始总计时
@@ -103,7 +93,7 @@ public class OrderInfoController {
                 for (int j = 0; j < 100000; j++) {
                     //赋值
                     pstm.setLong(1, Integer.toUnsignedLong(index));
-                    pstm.setInt(2, Math.random() > 0.4 ? 1 : 0);
+                    pstm.setString(2, "汕头");
                     //添加到同一个批处理中
                     pstm.addBatch();
                     index++;

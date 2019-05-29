@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shardingjdbcdemo.mapper.AddressInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+    <id column="address_id" jdbcType="BIGINT" property="addressId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="address_name" jdbcType="VARCHAR" property="addressName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    address_id, user_id, address_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from address_info_
+    where address_id = #{addressId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from address_info_
+    where address_id = #{addressId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+    insert into address_info_ (address_id, user_id, address_name
+      )
+    values (#{addressId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{addressName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+    insert into address_info_
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="addressName != null">
+        address_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="addressId != null">
+        #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addressName != null">
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+    update address_info_
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addressName != null">
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where address_id = #{addressId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+    update address_info_
+    set user_id = #{userId,jdbcType=BIGINT},
+      address_name = #{addressName,jdbcType=VARCHAR}
+    where address_id = #{addressId,jdbcType=BIGINT}
+  </update>
+
+  <delete id="deleteByUserId" parameterType="long">
+      DELETE FROM address_info_ where user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+  <update id="updateByUserId" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+    update address_info_
+    set address_name = #{addressName,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+  <select id="queryByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from address_info_
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <select id="queryByJoin" parameterType="java.lang.Long" resultType="com.example.shardingjdbcdemo.response.OrderAndAddressResponse">
+        select oi.order_id as orderId,ai.address_id as addressId,ai.address_name as addressName
+        from address_info_ ai join order_info oi
+        on ai.user_id = oi.user_id
+        where ai.user_id = #{userId,jdbcType=BIGINT}
+    </select>
+</mapper>

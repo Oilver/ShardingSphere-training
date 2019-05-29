@@ -3,6 +3,8 @@ package com.example.shardingjdbcdemo.mapper;
 import com.example.shardingjdbcdemo.entity.OrderInfoEntity;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface OrderInfoEntityMapper {
     int deleteByPrimaryKey(Long orderId);
@@ -16,4 +18,16 @@ public interface OrderInfoEntityMapper {
     int updateByPrimaryKeySelective(OrderInfoEntity record);
 
     int updateByPrimaryKey(OrderInfoEntity record);
+
+
+    /**
+     * ---------test non-sharding methods---------
+     *
+     * @param userId
+     */
+    void deleteByUserId(long userId);
+
+    void updateByUserId(OrderInfoEntity record);
+
+    List<OrderInfoEntity> queryByUserId(Long userId);
 }

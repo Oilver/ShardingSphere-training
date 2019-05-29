@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shardingjdbcdemo.mapper.OrderInfoEntityMapper">
   <resultMap id="BaseResultMap" type="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
-    <id column="order_id" jdbcType="BIGINT" property="orderId" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <id column="order_id" jdbcType="BIGINT" property="orderId"/>
+    <result column="user_id" jdbcType="BIGINT" property="userId"/>
+    <result column="sex" jdbcType="INTEGER" property="sex"/>
   </resultMap>
   <sql id="Base_Column_List">
     order_id, user_id, sex
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from order_info_
     where order_id = #{orderId,jdbcType=BIGINT}
   </select>
@@ -67,5 +67,23 @@
     set user_id = #{userId,jdbcType=BIGINT},
       sex = #{sex,jdbcType=INTEGER}
     where order_id = #{orderId,jdbcType=BIGINT}
-  </update>
+    </update>
+
+  <delete id="deleteByUserId" parameterType="long">
+      DELETE FROM order_info_ where user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+  <update id="updateByUserId" parameterType="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
+    update order_info_
+    set sex = #{sex,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+  <select id="queryByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from order_info_
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
 </mapper>
