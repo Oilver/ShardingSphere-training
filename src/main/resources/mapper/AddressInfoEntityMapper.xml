@@ -92,4 +92,8 @@
         on ai.user_id = oi.user_id
         where ai.user_id = #{userId,jdbcType=BIGINT}
     </select>
+
+  <delete id="deleteAll">
+    delete from address_info_
+  </delete>
 </mapper>

@@ -2,6 +2,7 @@ package com.example.shardingjdbcdemo.mapper;
 
 import com.example.shardingjdbcdemo.entity.OrderInfoEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,4 +31,9 @@ public interface OrderInfoEntityMapper {
     void updateByUserId(OrderInfoEntity record);
 
     List<OrderInfoEntity> queryByUserId(Long userId);
+
+    List<OrderInfoEntity> queryByUserIdAndOrderId(@Param("userId") long userId,
+                                                  @Param("orderId") long orderId);
+
+    void deleteAll();
 }

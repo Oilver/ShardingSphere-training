@@ -86,4 +86,16 @@
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
 
+  <select id="queryByUserIdAndOrderId"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from order_info_
+    where user_id = #{userId,jdbcType=BIGINT}
+    and order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteAll">
+    delete from order_info_
+  </delete>
+
 </mapper>

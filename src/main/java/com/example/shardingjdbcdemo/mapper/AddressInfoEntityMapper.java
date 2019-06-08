@@ -32,4 +32,6 @@ public interface AddressInfoEntityMapper {
     AddressInfoEntity queryByUserId(Long userId);
 
     List<OrderAndAddressResponse> queryByJoin(Long userId);
+
+    void deleteAll();
 }

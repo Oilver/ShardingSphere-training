@@ -46,28 +46,25 @@ sharding:
         tables:
           order_info_:
             actual-data-nodes: ds${0..3}.order_info_${0..9}  #数据节点
+            key-generator-column-name: order_id  #主键
             table-strategy:  #分表策略
               inline:
-                sharding-column: order_id
-                algorithm-expression: order_info_${order_id % 10}
-            keyGenerator:
-              type: SNOWFLAKE
-              column: order_id
+                sharding-column: user_id
+                algorithm-expression: order_info_${user_id % 10}
           address_info_:
-            actual-data-nodes: ds${0..3}.order_info_${0..9}  #数据节点
+            actual-data-nodes: ds${0..3}.address_info_${0..9}  #数据节点
+            key-generator-column-name: address_id  #主键
             table-strategy:  #分表策略
               inline:
-                sharding-column: address_id
-                algorithm-expression: address_info_${address_id % 2}
-            keyGenerator:
-              type: SNOWFLAKE
-              column: address_id
+                sharding-column: user_id
+                algorithm-expression: address_info_${user_id % 10}
+
         #绑定表,有利于join
         binding-tables:
-          - order_info_ address_info_
+        - order_info_ address_info_
 
         defaultDataSourceName: ds0
         defaultDatabaseStrategy:
-          inline:
-            shardingColumn: user_id
-            algorithmExpression: ds${user_id % 4}
+          standard:
+            precise-algorithm-class-name: com.example.shardingjdbcdemo.algorithm.MyStandardShardingAlgorithm
+            sharding-column: user_id
