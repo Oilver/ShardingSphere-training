@@ -1,0 +1,53 @@
+dataSources:
+  ds0: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user_0?useSSL=false&characterEncoding=utf8
+    username: root
+    password: admin
+  ds1: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user_1?useSSL=false&characterEncoding=utf8
+    username: root
+    password: admin
+  ds2: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user_2?useSSL=false&characterEncoding=utf8
+    username: root
+    password: admin
+  ds3: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user_3?useSSL=false&characterEncoding=utf8
+    username: root
+    password: admin
+
+shardingRule:
+  tables:
+    order_info_:
+      actualDataNodes: ds${0..3}.order_info_${0..9}  #数据节点
+      tableStrategy:
+        inline:
+          shardingColumn: user_id
+          algorithmExpression: order_info_${user_id % 10}
+      keyGenerator:
+        type: SNOWFLAKE
+        column: order_id
+    address_info_:
+      actualDataNodes: ds${0..3}.address_info_${0..9}  #数据节点
+      tableStrategy:
+        inline:
+          shardingColumn: user_id
+          algorithmExpression: address_info_${user_id % 10}
+      keyGenerator:
+        type: SNOWFLAKE
+        column: address_id
+  bindingTables:
+    - order_info_,address_info_
+
+  defaultDataSourceName: ds0
+  defaultDatabaseStrategy:
+    standard:
+      preciseAlgorithmClassName: com.example.shardingjdbcdemo.algorithm.MyStandardShardingAlgorithm
+      shardingColumn: user_id
+
+props:
+  sql.show: true

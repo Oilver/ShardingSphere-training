@@ -88,7 +88,7 @@
 
   <select id="queryByJoin" parameterType="java.lang.Long" resultType="com.example.shardingjdbcdemo.response.OrderAndAddressResponse">
         select oi.order_id as orderId,ai.address_id as addressId,ai.address_name as addressName
-        from address_info_ ai join order_info oi
+        from address_info_ ai join order_info_ oi
         on ai.user_id = oi.user_id
         where ai.user_id = #{userId,jdbcType=BIGINT}
     </select>
