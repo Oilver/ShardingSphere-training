@@ -47,4 +47,14 @@ public class TestController {
         }
         return ServerResponse.createBySuccess(result);
     }
+
+    /**
+     * 测试统计sql
+     * @return
+     */
+    @ApiOperation(value = "test")
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public ServerResponse testCount() {
+        return ServerResponse.createBySuccess(testMapper.count());
+    }
 }

@@ -15,4 +15,6 @@ public interface TestMapper {
     Long queryAvgBySex(int sex);
 
     List<UserInfoResponse> limit();
+
+    int count();
 }

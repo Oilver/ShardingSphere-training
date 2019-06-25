@@ -30,4 +30,8 @@
         from user_info_
         ORDER BY user_id LIMIT 5, 20
     </select>
+
+    <select id="count" resultType="int">
+        select count(1) from order_info_
+    </select>
 </mapper>
