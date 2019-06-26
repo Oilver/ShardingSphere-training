@@ -1,9 +1,9 @@
-package com.example.shardingjdbcdemo.service.impl;
+package com.example.shardingjdbcdemo.web.service.impl;
 
 import com.example.shardingjdbcdemo.common.ServerResponse;
-import com.example.shardingjdbcdemo.entity.UserInfoEntity;
-import com.example.shardingjdbcdemo.mapper.UserInfoEntityMapper;
-import com.example.shardingjdbcdemo.service.IUserInfoService;
+import com.example.shardingjdbcdemo.web.entity.UserInfoEntity;
+import com.example.shardingjdbcdemo.web.mapper.UserInfoEntityMapper;
+import com.example.shardingjdbcdemo.web.service.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

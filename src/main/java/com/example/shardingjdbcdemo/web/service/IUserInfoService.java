@@ -1,7 +1,7 @@
-package com.example.shardingjdbcdemo.service;
+package com.example.shardingjdbcdemo.web.service;
 
 import com.example.shardingjdbcdemo.common.ServerResponse;
-import com.example.shardingjdbcdemo.entity.UserInfoEntity;
+import com.example.shardingjdbcdemo.web.entity.UserInfoEntity;
 
 public interface IUserInfoService {
 

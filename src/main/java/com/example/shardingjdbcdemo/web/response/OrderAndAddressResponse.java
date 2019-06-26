@@ -1,4 +1,4 @@
-package com.example.shardingjdbcdemo.response;
+package com.example.shardingjdbcdemo.web.response;
 
 import lombok.Data;
 

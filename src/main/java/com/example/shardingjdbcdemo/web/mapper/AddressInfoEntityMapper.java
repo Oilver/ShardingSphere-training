@@ -1,7 +1,7 @@
-package com.example.shardingjdbcdemo.mapper;
+package com.example.shardingjdbcdemo.web.mapper;
 
-import com.example.shardingjdbcdemo.entity.AddressInfoEntity;
-import com.example.shardingjdbcdemo.response.OrderAndAddressResponse;
+import com.example.shardingjdbcdemo.web.entity.AddressInfoEntity;
+import com.example.shardingjdbcdemo.web.response.OrderAndAddressResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

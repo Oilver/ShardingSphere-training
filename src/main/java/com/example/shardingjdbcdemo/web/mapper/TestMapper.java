@@ -1,8 +1,8 @@
-package com.example.shardingjdbcdemo.mapper;
+package com.example.shardingjdbcdemo.web.mapper;
 
-import com.example.shardingjdbcdemo.request.ordersRequest;
-import com.example.shardingjdbcdemo.response.UserInfoResponse;
-import com.example.shardingjdbcdemo.response.ordersResponse;
+import com.example.shardingjdbcdemo.web.request.ordersRequest;
+import com.example.shardingjdbcdemo.web.response.UserInfoResponse;
+import com.example.shardingjdbcdemo.web.response.ordersResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

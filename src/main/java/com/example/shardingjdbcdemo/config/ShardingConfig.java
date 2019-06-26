@@ -34,11 +34,16 @@ public class ShardingConfig {
         dataSourceMap.put("ds2", createDb2());
         dataSourceMap.put("ds3", createDb3());
 
-        // 配置分片规则
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
         shardingRuleConfig.getTableRuleConfigs().add(addressRuleConfig());
         shardingRuleConfig.getTableRuleConfigs().add(orderRuleConfig());
         shardingRuleConfig.getBindingTableGroups().add("address_info_, order_info_");
+        //默认数据源和分库策略
+        shardingRuleConfig.setDefaultDataSourceName("ds0");
+        shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(
+                new StandardShardingStrategyConfiguration("user_id", new MyStandardShardingAlgorithm())
+        );
+
         Properties p = new Properties();
         p.setProperty("sql.show", Boolean.TRUE.toString());
         // 获取数据源对象
@@ -50,10 +55,6 @@ public class ShardingConfig {
         // 配置address表规则
         TableRuleConfiguration tableRuleConfig = new TableRuleConfiguration("address_info_", "ds${0..3}.address_info_${0..9}");
         tableRuleConfig.setKeyGeneratorConfig(new KeyGeneratorConfiguration("SNOWFLAKE", "address_id"));
-
-        //分库策略
-        tableRuleConfig.setDatabaseShardingStrategyConfig(
-                new StandardShardingStrategyConfiguration("user_id", new MyStandardShardingAlgorithm()));
         //分表策略
         //自定义规则，规则比较麻烦，因此只能使用代码控制
         tableRuleConfig.setTableShardingStrategyConfig(
@@ -66,10 +67,6 @@ public class ShardingConfig {
         // 配置order表规则
         TableRuleConfiguration tableRuleConfig = new TableRuleConfiguration("order_info_", "ds${0..3}.order_info_${0..9}");
         tableRuleConfig.setKeyGeneratorConfig(new KeyGeneratorConfiguration("SNOWFLAKE", "order_id"));
-
-        //分库策略
-        tableRuleConfig.setDatabaseShardingStrategyConfig(
-                new StandardShardingStrategyConfiguration("user_id", new MyStandardShardingAlgorithm()));
         //分表策略
         //自定义规则，规则比较麻烦，因此只能使用代码控制
         tableRuleConfig.setTableShardingStrategyConfig(

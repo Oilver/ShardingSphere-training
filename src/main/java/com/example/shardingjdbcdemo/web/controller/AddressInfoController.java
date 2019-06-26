@@ -1,8 +1,8 @@
-package com.example.shardingjdbcdemo.controller;
+package com.example.shardingjdbcdemo.web.controller;
 
 import com.example.shardingjdbcdemo.common.ServerResponse;
-import com.example.shardingjdbcdemo.entity.AddressInfoEntity;
-import com.example.shardingjdbcdemo.mapper.AddressInfoEntityMapper;
+import com.example.shardingjdbcdemo.web.entity.AddressInfoEntity;
+import com.example.shardingjdbcdemo.web.mapper.AddressInfoEntityMapper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,7 @@
-package com.example.shardingjdbcdemo.entity;
+package com.example.shardingjdbcdemo.web.response;
 
-public class UserInfoEntity {
+public class UserInfoResponse {
+
     private Long userId;
 
     private String userName;
@@ -24,7 +25,7 @@ public class UserInfoEntity {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
     public String getAccount() {
@@ -32,7 +33,7 @@ public class UserInfoEntity {
     }
 
     public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+        this.account = account;
     }
 
     public String getPassword() {
@@ -40,7 +41,7 @@ public class UserInfoEntity {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public Integer getSex() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.shardingjdbcdemo.mapper.AddressInfoEntityMapper">
-  <resultMap id="BaseResultMap" type="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+<mapper namespace="com.example.shardingjdbcdemo.web.controller.mapper.AddressInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.example.shardingjdbcdemo.web.entity.AddressInfoEntity">
     <id column="address_id" jdbcType="BIGINT" property="addressId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="address_name" jdbcType="VARCHAR" property="addressName" />
@@ -19,13 +19,13 @@
     delete from address_info_
     where address_id = #{addressId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+  <insert id="insert" parameterType="com.example.shardingjdbcdemo.web.entity.AddressInfoEntity">
     insert into address_info_ (address_id, user_id, address_name
       )
     values (#{addressId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{addressName,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+  <insert id="insertSelective" parameterType="com.example.shardingjdbcdemo.web.entity.AddressInfoEntity">
     insert into address_info_
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="addressId != null">
@@ -50,7 +50,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shardingjdbcdemo.web.entity.AddressInfoEntity">
     update address_info_
     <set>
       <if test="userId != null">
@@ -62,7 +62,7 @@
     </set>
     where address_id = #{addressId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+  <update id="updateByPrimaryKey" parameterType="com.example.shardingjdbcdemo.web.entity.AddressInfoEntity">
     update address_info_
     set user_id = #{userId,jdbcType=BIGINT},
       address_name = #{addressName,jdbcType=VARCHAR}
@@ -73,7 +73,7 @@
       DELETE FROM address_info_ where user_id = #{userId,jdbcType=BIGINT}
     </delete>
 
-  <update id="updateByUserId" parameterType="com.example.shardingjdbcdemo.entity.AddressInfoEntity">
+  <update id="updateByUserId" parameterType="com.example.shardingjdbcdemo.web.entity.AddressInfoEntity">
     update address_info_
     set address_name = #{addressName,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=BIGINT}
@@ -86,7 +86,7 @@
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
 
-  <select id="queryByJoin" parameterType="java.lang.Long" resultType="com.example.shardingjdbcdemo.response.OrderAndAddressResponse">
+  <select id="queryByJoin" parameterType="java.lang.Long" resultType="com.example.shardingjdbcdemo.web.response.OrderAndAddressResponse">
         select oi.order_id as orderId,ai.address_id as addressId,ai.address_name as addressName
         from address_info_ ai join order_info_ oi
         on ai.user_id = oi.user_id

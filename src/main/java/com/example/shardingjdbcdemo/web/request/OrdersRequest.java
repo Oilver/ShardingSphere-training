@@ -1,19 +1,10 @@
-package com.example.shardingjdbcdemo.entity;
+package com.example.shardingjdbcdemo.web.request;
 
-public class OrderInfoEntity {
-    private Long orderId;
+public class OrdersRequest {
 
     private Long userId;
 
     private Integer sex;
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
 
     public Long getUserId() {
         return userId;

@@ -1,6 +1,6 @@
-package com.example.shardingjdbcdemo.mapper;
+package com.example.shardingjdbcdemo.web.mapper;
 
-import com.example.shardingjdbcdemo.entity.UserInfoEntity;
+import com.example.shardingjdbcdemo.web.entity.UserInfoEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

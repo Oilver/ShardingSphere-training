@@ -1,22 +1,11 @@
-package com.example.shardingjdbcdemo.response;
+package com.example.shardingjdbcdemo.web.entity;
 
-public class ordersResponse {
-
+public class OrderInfoEntity {
     private Long orderId;
 
     private Long userId;
 
     private Integer sex;
-
-    private String addressName;
-
-    public String getAddressName() {
-        return addressName;
-    }
-
-    public void setAddressName(String addressName) {
-        this.addressName = addressName;
-    }
 
     public Long getOrderId() {
         return orderId;

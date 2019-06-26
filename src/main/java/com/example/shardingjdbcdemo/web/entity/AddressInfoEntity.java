@@ -1,4 +1,4 @@
-package com.example.shardingjdbcdemo.entity;
+package com.example.shardingjdbcdemo.web.entity;
 
 public class AddressInfoEntity {
     private Long addressId;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.shardingjdbcdemo.mapper.OrderInfoEntityMapper">
-  <resultMap id="BaseResultMap" type="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
+<mapper namespace="com.example.shardingjdbcdemo.web.controller.mapper.OrderInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.example.shardingjdbcdemo.web.entity.OrderInfoEntity">
     <id column="order_id" jdbcType="BIGINT" property="orderId"/>
     <result column="user_id" jdbcType="BIGINT" property="userId"/>
     <result column="sex" jdbcType="INTEGER" property="sex"/>
@@ -19,13 +19,13 @@
     delete from order_info_
     where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
+  <insert id="insert" parameterType="com.example.shardingjdbcdemo.web.entity.OrderInfoEntity">
     insert into order_info_ (order_id, user_id, sex
       )
     values (#{orderId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{sex,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
+  <insert id="insertSelective" parameterType="com.example.shardingjdbcdemo.web.entity.OrderInfoEntity">
     insert into order_info_
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -50,7 +50,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shardingjdbcdemo.web.entity.OrderInfoEntity">
     update order_info_
     <set>
       <if test="userId != null">
@@ -62,7 +62,7 @@
     </set>
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
+  <update id="updateByPrimaryKey" parameterType="com.example.shardingjdbcdemo.web.entity.OrderInfoEntity">
     update order_info_
     set user_id = #{userId,jdbcType=BIGINT},
       sex = #{sex,jdbcType=INTEGER}
@@ -73,7 +73,7 @@
       DELETE FROM order_info_ where user_id = #{userId,jdbcType=BIGINT}
     </delete>
 
-  <update id="updateByUserId" parameterType="com.example.shardingjdbcdemo.entity.OrderInfoEntity">
+  <update id="updateByUserId" parameterType="com.example.shardingjdbcdemo.web.entity.OrderInfoEntity">
     update order_info_
     set sex = #{sex,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=BIGINT}
