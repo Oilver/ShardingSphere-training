@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.shardingjdbcdemo.web.controller.mapper.AddressInfoEntityMapper">
+<mapper namespace="com.example.shardingjdbcdemo.web.mapper.AddressInfoEntityMapper">
   <resultMap id="BaseResultMap" type="com.example.shardingjdbcdemo.web.entity.AddressInfoEntity">
     <id column="address_id" jdbcType="BIGINT" property="addressId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />

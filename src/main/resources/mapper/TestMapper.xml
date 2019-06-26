@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.shardingjdbcdemo.web.controller.mapper.TestMapper">
+<mapper namespace="com.example.shardingjdbcdemo.web.mapper.TestMapper">
 
-    <select id="queryOrdersByUserIdAndSex" parameterType="com.example.shardingjdbcdemo.web.request.ordersRequest"
-            resultType="com.example.shardingjdbcdemo.web.response.ordersResponse">
+    <select id="queryOrdersByUserIdAndSex" parameterType="com.example.shardingjdbcdemo.web.request.OrdersRequest"
+            resultType="com.example.shardingjdbcdemo.web.response.OrdersResponse">
         select u.user_id as userId,u.sex,o.order_id as orderId,
         a.address_name as addressName
         from user_info_ u JOIN order_info_ o

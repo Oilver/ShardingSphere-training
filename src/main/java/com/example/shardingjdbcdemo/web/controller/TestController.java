@@ -2,6 +2,7 @@ package com.example.shardingjdbcdemo.web.controller;
 
 import com.example.shardingjdbcdemo.common.ServerResponse;
 import com.example.shardingjdbcdemo.web.mapper.TestMapper;
+import com.example.shardingjdbcdemo.web.request.OrdersRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class TestController {
 
     @ApiOperation(value = "queryOrdersByUserIdAndSex")
     @RequestMapping(value = "queryOrdersByUserIdAndSex", method = RequestMethod.POST)
-    public ServerResponse queryOrdersByUserIdAndSex(@RequestBody ordersRequest request) {
+    public ServerResponse queryOrdersByUserIdAndSex(@RequestBody OrdersRequest request) {
         List result = testMapper.queryOrdersByUserIdAndSex(request);
         if (result == null) {
             return ServerResponse.createByError();

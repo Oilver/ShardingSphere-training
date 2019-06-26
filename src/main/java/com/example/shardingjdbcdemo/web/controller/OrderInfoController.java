@@ -2,6 +2,7 @@ package com.example.shardingjdbcdemo.web.controller;
 
 
 import com.example.shardingjdbcdemo.common.ServerResponse;
+import com.example.shardingjdbcdemo.web.entity.OrderInfoEntity;
 import com.example.shardingjdbcdemo.web.mapper.OrderInfoEntityMapper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
