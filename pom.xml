@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <sharding-sphere.version>3.1.0</sharding-sphere.version>
     </properties>
 
     <dependencies>
@@ -29,16 +30,34 @@
             <version>2.0.1</version>
         </dependency>
 
+        <!--<dependency>-->
+        <!--<groupId>org.apache.shardingsphere</groupId>-->
+        <!--<artifactId>sharding-jdbc-core</artifactId>-->
+        <!--<version>4.0.0-RC1</version>-->
+        <!--<exclusions>-->
+        <!--<exclusion>-->
+        <!--<groupId>org.apache.shardingsphere</groupId>-->
+        <!--<artifactId>sharding-core-execute</artifactId>-->
+        <!--</exclusion>-->
+        <!--</exclusions>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
+            <groupId>io.shardingsphere</groupId>
             <artifactId>sharding-jdbc-core</artifactId>
-            <version>4.0.0-RC1</version>
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.apache.shardingsphere</groupId>-->
-                    <!--<artifactId>sharding-core-execute</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+
+        <!--治理-->
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-orchestration</artifactId>
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-orchestration-reg-zookeeper-curator</artifactId>
+            <version>${sharding-sphere.version}</version>
         </dependency>
 
         <dependency>
