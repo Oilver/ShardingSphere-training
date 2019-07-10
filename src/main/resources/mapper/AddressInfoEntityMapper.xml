@@ -79,9 +79,8 @@
     where user_id = #{userId,jdbcType=BIGINT}
     </update>
 
-  <select id="queryByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
+  <select id="queryByUserId" parameterType="java.lang.Long" resultType="com.example.shardingjdbcdemo.web.response.AddressInfo_testEntity">
+    select address_id,user_id,address_name
     from address_info_
     where user_id = #{userId,jdbcType=BIGINT}
   </select>

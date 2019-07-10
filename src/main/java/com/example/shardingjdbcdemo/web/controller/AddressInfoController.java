@@ -43,7 +43,7 @@ public class AddressInfoController {
     @ApiOperation(value = "queryByUserId")
     @RequestMapping(value = "queryByUserId", method = RequestMethod.POST)
     public ServerResponse queryByUserId(@RequestParam long userId) {
-        AddressInfoEntity result = addressInfoEntityMapper.queryByUserId(userId);
+        List result = addressInfoEntityMapper.queryByUserId(userId);
         return ServerResponse.createBySuccess(result);
     }
 

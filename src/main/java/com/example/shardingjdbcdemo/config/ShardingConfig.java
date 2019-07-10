@@ -3,12 +3,15 @@ package com.example.shardingjdbcdemo.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.example.shardingjdbcdemo.algorithm.MyHintShardingAlgorithm;
 import com.example.shardingjdbcdemo.algorithm.MyStandardShardingAlgorithm;
+import org.apache.shardingsphere.api.config.encryptor.EncryptRuleConfiguration;
+import org.apache.shardingsphere.api.config.encryptor.EncryptorRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.KeyGeneratorConfiguration;
 import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.HintShardingStrategyConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStrategyConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.StandardShardingStrategyConfiguration;
+import org.apache.shardingsphere.shardingjdbc.api.EncryptDataSourceFactory;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +41,9 @@ public class ShardingConfig {
         shardingRuleConfig.getTableRuleConfigs().add(addressRuleConfig());
         shardingRuleConfig.getTableRuleConfigs().add(orderRuleConfig());
         shardingRuleConfig.getBindingTableGroups().add("address_info_, order_info_");
+
+        //数据脱敏
+        shardingRuleConfig.setEncryptRuleConfig(getOrderEncryptRuleConfiguration());
         //默认数据源和分库策略
         shardingRuleConfig.setDefaultDataSourceName("ds0");
         shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(
@@ -50,7 +56,11 @@ public class ShardingConfig {
         return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, p);
     }
 
-    //address表分片策略
+    /**
+     * address表分片策略
+     *
+     * @return
+     */
     private TableRuleConfiguration addressRuleConfig() {
         // 配置address表规则
         TableRuleConfiguration tableRuleConfig = new TableRuleConfiguration("address_info_", "ds${0..3}.address_info_${0..9}");
@@ -62,7 +72,11 @@ public class ShardingConfig {
         return tableRuleConfig;
     }
 
-    //order表分片策略
+    /**
+     * order表分片策略
+     *
+     * @return
+     */
     private TableRuleConfiguration orderRuleConfig() {
         // 配置order表规则
         TableRuleConfiguration tableRuleConfig = new TableRuleConfiguration("order_info_", "ds${0..3}.order_info_${0..9}");
@@ -74,7 +88,22 @@ public class ShardingConfig {
         return tableRuleConfig;
     }
 
-    public DruidDataSource createDb0() {
+    /**
+     * 数据脱敏
+     *
+     * @return
+     */
+    private EncryptRuleConfiguration getOrderEncryptRuleConfiguration() {
+        EncryptRuleConfiguration encryptRuleConfiguration = new EncryptRuleConfiguration();
+        Properties properties = new Properties();
+        properties.setProperty("aes.key.value", "123456");
+        EncryptorRuleConfiguration encryptorRuleConfiguration = new EncryptorRuleConfiguration(
+                "AES", "address_info_.address_name", properties);
+        encryptRuleConfiguration.getEncryptorRuleConfigs().put("test_encryptor", encryptorRuleConfiguration);
+        return encryptRuleConfiguration;
+    }
+
+    public DataSource createDb0() {
         // 配置第一个数据源
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(datasourceConfig.getClassName1());
@@ -88,7 +117,7 @@ public class ShardingConfig {
         return dataSource;
     }
 
-    public DruidDataSource createDb1() {
+    public DataSource createDb1() {
         // 配置第一个数据源
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(datasourceConfig.getClassName2());
@@ -102,7 +131,7 @@ public class ShardingConfig {
         return dataSource;
     }
 
-    public DruidDataSource createDb2() {
+    public DataSource createDb2() {
         // 配置第一个数据源
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(datasourceConfig.getClassName3());
@@ -116,7 +145,7 @@ public class ShardingConfig {
         return dataSource;
     }
 
-    public DruidDataSource createDb3() {
+    public DataSource createDb3() {
         // 配置第一个数据源
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(datasourceConfig.getClassName4());

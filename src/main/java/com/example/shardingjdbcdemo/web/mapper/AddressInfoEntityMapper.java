@@ -1,6 +1,7 @@
 package com.example.shardingjdbcdemo.web.mapper;
 
 import com.example.shardingjdbcdemo.web.entity.AddressInfoEntity;
+import com.example.shardingjdbcdemo.web.response.AddressInfo_testEntity;
 import com.example.shardingjdbcdemo.web.response.OrderAndAddressResponse;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -29,7 +30,7 @@ public interface AddressInfoEntityMapper {
 
     void updateByUserId(AddressInfoEntity record);
 
-    AddressInfoEntity queryByUserId(Long userId);
+    List<AddressInfo_testEntity> queryByUserId(Long userId);
 
     List<OrderAndAddressResponse> queryByJoin(Long userId);
 
